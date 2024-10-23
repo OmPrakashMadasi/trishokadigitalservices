@@ -1,0 +1,19 @@
+# Site settings
+title: "Trishoka Website"               # The title of your site
+description: "Empower Your Business With our Digital Services" # A description of your site
+baseurl: ""                              # The subpath of your site (if applicable)
+url: "http://localhost:3000"                # The base hostname for your site (replace with your own)
+
+# Theme settings
+theme: jekyll-theme-primer               # The theme you are using
+
+# Plugins (if you have any)
+plugins:
+  - jekyll-github-metadata               # GitHub metadata for your site
+  - jekyll-seo-tag                       # SEO tag for better search visibility
+  - jekyll-paginate                      # For pagination of posts
+
+# Markdown settings
+markdown: kramdown                       # Markdown processor to use
+
+# Other settings can be added below

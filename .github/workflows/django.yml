@@ -1,0 +1,108 @@
+name: Django CI with React Frontend
+
+on:
+  push:
+    branches: [ "master" ]
+    paths-ignore: [ "node_modules/**/*"]
+  pull_request:
+    branches: [ "master" ]
+    paths-ignore: [ "node_modules/**/*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.8, 3.9]
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: main_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: admin
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+
+    steps:
+      # step 0: Set up Env Variables
+    - name: Set up Environment Variables
+      run: |
+        echo "DATABASE_URL=postgresql://op:TyKu1GiPwsKIigwsTCqb7jBtbppoHUQd@dpg-cs7ma03v2p9s73f5appg-a.oregon-postgres.render.com/main_db_uz0q" >> $GITHUB_ENV      
+
+    # Step 1: Checkout the codebase
+    - uses: actions/checkout@v4
+
+    # Step 2: Set up Python
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    # Step 3: Install Python dependencies
+    - name: Install Backend Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r Backend/requirements.txt
+
+    # Step 4: Set up Database (if Django uses it)
+    - name: Set up Database
+      env:
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_PORT: ${{ secrets.DB_PORT }}
+      run: |
+        python manage.py migrate
+      working-directory: Backend
+
+#    # Step 5: Collect Static Files (optional, for Django apps with static files)
+#    - name: Collect Static Files
+#      run: |
+#        python manage.py collectstatic --noinput
+#      working-directory: Backend
+
+    # Step 6: Run Django Tests
+    - name: Run Tests
+      env:
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_PORT: ${{ secrets.DB_PORT }}
+      run: |
+        python manage.py test
+      working-directory: Backend
+
+    # Step 7: Set up Node.js for the frontend
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    # Step 8: Install Frontend Dependencies
+    - name: Install Frontend Dependencies
+      working-directory: Frontend
+      run: npm install
+
+    # New Step: Set Permissions (Fix Permission Denied Issue)
+    - name: Set Permissions for Node Modules
+      working-directory: Frontend
+      run: sudo chmod -R 755 node_modules
+
+
+    # Step 9: Build the Frontend
+    - name: Build Frontend
+      working-directory: Frontend
+      run: |
+        CI=false npm run build
+     # run: npm run build
