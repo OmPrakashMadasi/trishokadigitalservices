@@ -48,6 +48,7 @@ import ContactUs from "./components/body/navLinksBodys/Contact/ContactUs";
 import Servicepage from "./components/body/navLinksBodys/Servicespage/Servicepage";
 import WhatsAppButton from "./components/whatsapp/WhatsAppButton";
 import AboutUsScreen from "./components/body/navLinksBodys/AboutUs/aboutUs";
+import Conditions from "./components/body/navLinksBodys/conditionspage/conditions";
 
 function App() {
  
@@ -75,6 +76,10 @@ function App() {
     {
       path: '/Services',
       element:<><Header/> <Servicepage/><WhatsAppButton/> <Footer/></>
+    },
+    {
+      path: '/conditionspage',
+      element:<> <Header/> <Conditions/> <WhatsAppButton/> <Footer/></>
     }
 
     

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Servicepage.module.scss";
 import { servicesNavData } from "../../services/services";
+import {ArrowUp} from 'iconsax-react'
 
 const Servicepage = () => {
   console.log(servicesNavData, "kl");
@@ -153,6 +154,9 @@ const Servicepage = () => {
           </div>
         </div>
       </section>
+      <div style={{float:'right',marginRight:32,padding:5}}>
+    <a href="#" class="back-to-top"><ArrowUp size="25" color="black" variant="Bold"/>Top</a>
+    </div>
     </div>
   );
 };

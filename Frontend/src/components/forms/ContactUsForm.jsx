@@ -75,9 +75,9 @@ const ContactUsForm = () => {
 
   return (
     <div>
-      <a href="#" className="back-to-top" style={{  }} onClick={scrollToBottom}>
+      {/* <a href="#" className="back-to-top" style={{  }} onClick={scrollToBottom}>
         <ArrangeVerticalCircle size="20" color="#3B999F" />
-      </a>
+      </a> */}
       <button onClick={toggleFormVisibility} className="toggleButton" 
         style={{
           position: 'fixed',

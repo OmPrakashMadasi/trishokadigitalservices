@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 import Cursor from "../../Cursor/Cursor";
 export default function Header(props) {
 
+  useEffect(() => {
+      
+    // alert('footer component mountain')
+   }, []);
+
   const navLinks = ["Services", "Blogs", "AboutUs",
     "Careers", "ContactUs"];
   return (

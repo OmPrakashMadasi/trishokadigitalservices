@@ -1,12 +1,17 @@
-import React from "react";
+import {useEffect} from "react";
 import "../body/article.css";
 import "../body/section.css";
 import "../header/Header.css";
 import "./footer.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import { Link } from "react-router-dom";
 
 export default function Footer() {
+  useEffect(() => {
+      
+    // alert('footer component mountain')
+   }, []);
+
   const currentYear = new Date().getFullYear();
   return (
     <footer className="text-light py-4 w-100">
@@ -62,6 +67,11 @@ export default function Footer() {
             <span className="reuseClass">Mobile App Development</span>
             <br />
             <span className="reuseClass">Digital Marketing</span>
+            <br/>
+            <Link
+            to="/conditionspage">
+            <span className="reuseClass">Terms & Conditions</span>
+          </Link>
           </div>
 
           {/* <!-- Contact Details --> */}
