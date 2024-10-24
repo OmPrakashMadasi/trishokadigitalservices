@@ -21,9 +21,7 @@ jobs:
         image: mysql:latest  # Latest MySQL image
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}            # Use secret for the database name
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}                    # Use secret for the database user
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}          
         ports:
           - 3306:3306
         options: >-
