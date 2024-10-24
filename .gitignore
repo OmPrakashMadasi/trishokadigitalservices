@@ -1,6 +1,6 @@
 # dependencies
 /node_modules
-TrishokaApp/node_modules
+Frontend/node_modules
 
 # Ignore .pack files specifically if needed
 *.pack
